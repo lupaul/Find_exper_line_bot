@@ -280,7 +280,7 @@ DEPENDENCIES
   koala
   line-bot-api
   meta-tags
-  mysql2 (~> 0.3.18)
+  mysql2
   pry
   puma
   rails (~> 5.1)

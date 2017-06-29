@@ -28,14 +28,14 @@ gem 'httparty'
 
 # db
 # gem 'pg'
-
+gem 'mysql2'
 
 # others
 gem 'rails-i18n', '~> 5.0.0'
 
 group :development, :test do
   gem 'byebug'
-  gem 'mysql2', '~> 0.3.18'
+
 end
 
 group :development do
