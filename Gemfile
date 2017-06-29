@@ -28,8 +28,10 @@ gem 'httparty'
 
 # db
 # gem 'pg'
-gem 'mysql2'
 
+group :production do
+  gem 'mysql2'
+end
 # others
 gem 'rails-i18n', '~> 5.0.0'
 
