@@ -1,0 +1,62 @@
+zh-TW:
+  label:
+    search_intro: 請移動座標以尋找附近餐廳。
+    score: 評分
+    distance: 距離
+    search_mode: 排序：
+    display_mode: 顯示：
+    type_mode: 類型：
+    restaurant: 餐廳
+    coffee: 咖啡
+    wrap: 直式
+    nowrap: 橫式
+  common:
+    score: 分
+    people: 人
+    user: 使用者
+    random: 隨機
+    radius: 半徑
+    point: 評分
+    setting: 設定
+    command: 指令
+    open: 開
+    close: 關
+    meal: 餐
+  carousel:
+    text: 搜尋結果如下
+  facebook:
+    score: FB
+  google:
+    score: Google
+    match_score: 0.5
+  button:
+    official: 官方資訊
+    location: 位置
+    related_comment: 相關評論
+  empty:
+    no_hours: 無提供營業時間
+    no_restaurants: 此區域查無餐廳
+  command:
+    success: 設定成功
+    error: 設定失敗，輸入指令有誤
+  settings:
+    facebook:
+      search_type: restaurant
+      distance: 500
+      fields: location,name,overall_star_rating,rating_count,phone,link,price_range,category,category_list,hours,website
+      score: 3.8
+      random: true
+      reject_price: ['$$$','$$$$']
+      reject_name: ['飯店','酒店']
+      reject_category: ['食品與飲料公司','學校','購物與零售','藝術與娛樂',
+        '主題遊樂園','雜貨店','地標和名勝古蹟','餐飲批發商','食品批發商','公家單位與政府機關',
+        '大批發供應店','保齡球場','區域','銷售服務','購物區','戶外與休閒活動、健身',
+        '活動','校園建築','過敏症醫師','醫療中心','藝廊','禮品店','社群俱樂部',
+        '書局','旅館','水療','地區','住宅','大型零售商','電腦維修服務','食品服務批發商',
+        '專業服務','旅遊服務','航空業服務','地鐵站','機場航站中心','棒球場','旅行社',
+        '休閒育樂','遊樂場','購物中心','體育場、比賽場和運動場','餐飲用品店','其他','旅遊與運輸',
+        '露天展場','公眾服務','公共服務','兒童保護服務']
+    google:
+      zoom: 13
+  placeholder:
+    search_field: 請輸入關鍵字
