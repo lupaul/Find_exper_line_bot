@@ -1,12 +1,12 @@
-set :deploy_to, '/home/apps/foodsearch'
-set :rails_env, 'production'
-set :branch, 'master'
+# set :deploy_to, '/home/apps/foodsearch'
+# set :rails_env, 'production'
+# set :branch, 'master'
+#
+# role :app, %w{apps@johnwudevelop.tk}
+# role :web, %w{apps@johnwudevelop.tk}
+# role :db,  %w{apps@johnwudevelop.tk}
 
-role :app, %w{apps@johnwudevelop.tk}
-role :web, %w{apps@johnwudevelop.tk}
-role :db,  %w{apps@johnwudevelop.tk}
-
-
+server "13.113.220.17", user: "deploy", roles: %w{app db web}, my_property: :my_value
 
 # Configuration
 # =============

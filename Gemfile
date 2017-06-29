@@ -38,10 +38,8 @@ group :development, :test do
 end
 
 group :development do
-	gem 'capistrano'
-	gem 'capistrano-rvm'
-	gem 'capistrano-rails'
-	gem 'capistrano-passenger'
+  gem "capistrano-rails"
+  gem "capistrano-passenger"
 
   gem 'web-console', '~> 2.0'
   gem 'spring'
