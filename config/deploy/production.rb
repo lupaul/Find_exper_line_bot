@@ -6,7 +6,7 @@
 # role :web, %w{apps@johnwudevelop.tk}
 # role :db,  %w{apps@johnwudevelop.tk}
 
-server "13.112.104.201", user: "deploy", roles: %w{app db web}, my_property: :my_value
+server "13.114.41.106", user: "deploy", roles: %w{app db web}, my_property: :my_value
 
 # Configuration
 # =============
