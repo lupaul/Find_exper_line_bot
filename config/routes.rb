@@ -6,4 +6,9 @@ Rails.application.routes.draw do
   get 'webhook' => 'base#webhook'
   post 'webhook' => 'base#facebook_callback'
   get 'privacy' => 'base#privacy'
+
+
+  namespace :naver_lines do
+    post :webhooks, :to => "application#webhooks"
+  end
 end

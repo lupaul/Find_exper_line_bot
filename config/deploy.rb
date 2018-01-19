@@ -4,7 +4,9 @@
 
 set :application, "find_expert_linebot"
 set :repo_url, "git@github.com:lupaul/Find_exper_line_bot.git"
-set :deploy_to, '/home/deploy/find_expert'
+# set :deploy_to, '/home/deploy/find_expert'
+
+set :keep_releases, 5
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604062636) do
+ActiveRecord::Schema.define(version: 20180119095328) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.bigint "facebook_id"
@@ -18,6 +18,18 @@ ActiveRecord::Schema.define(version: 20170604062636) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["facebook_id"], name: "index_categories_on_facebook_id"
+  end
+
+  create_table "naver_line_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.integer "user_id"
+    t.string "line_user_id"
+    t.string "display_name"
+    t.string "picture_url"
+    t.string "status_message"
+    t.time "line_time_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_naver_line_accounts_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
