@@ -1,10 +1,10 @@
 `ssh-add`
 # config valid only for current version of Capistrano
-lock "3.8.2"
+# lock "3.8.2"
 
-set :application, "foodsearch"
-set :repo_url, "git@github.com:lupaul/Food_search.git"
-set :deploy_to, '/home/deploy/foodsearch'
+set :application, "find_expert_linebot"
+set :repo_url, "git@github.com:lupaul/Find_exper_line_bot.git"
+set :deploy_to, '/home/deploy/find_expert'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
