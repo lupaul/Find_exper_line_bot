@@ -39,6 +39,7 @@ class NaverLines::ApplicationController < ApplicationController
 				content = message[:message][:text]
 				Rails.logger.info "get_line_message: #{content}"
         line_user.contents.create(content: content)
+        line_user.save
 
 				client = Line::Bot::Client.new do |config|
 				  config.channel_secret = Rails.application.config_for(:api_key)["line"]["channel_secret"]
