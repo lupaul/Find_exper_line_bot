@@ -11,18 +11,38 @@ class NaverLines::ApplicationController < ApplicationController
 			end
 			case message[:type]
 			when "follow"
-				line_user_id = message[:source][:user_id]
-				line_user = NaverLine::Account.find_or_initialize_by(:line_user_id => line_user_id)
+        client = Line::Bot::Client.new do |config|
+				  config.channel_secret = Rails.application.config_for(:api_key)["line"]["channel_secret"]
+				  config.channel_token = Rails.application.config_for(:api_key)["line"]["channel_token"]
+				end
 
-				line_user.line_time_at = Time.at(message[:line_time_at].to_i/1000)
-				line_user.save
+				line_user_id = message[:source][:user_id]
+        response = client.get_profile(line_user_id)
+        case response
+        when Net::HTTPSuccess then
+          contact = JSON.parse(response.body)
+          Rails.logger.info "get profile: 1.#{contact['displayName']}, and 2.#{ contact['pictureUrl']}, 3.#{contact['statusMessage']} "
+          line_user = NaverLine::Account.find_or_initialize_by(:line_user_id => line_user_id)
+          line_user.display_name = contact['displayName']
+          line_user.picture_url = contact['pictureUrl']
+          line_user.status_message = contact['statusMessage']
+  				line_user.line_time_at = Time.at(message[:line_time_at].to_i/1000)
+  				line_user.save
+        else
+          Rails.logger.info "#{response.code} #{response.body}"
+        end
 
 			when "message"
+        line_user_id = message[:source][:user_id]
+				line_user = NaverLine::Account.find_or_initialize_by(:line_user_id => line_user_id)
+
 				content = message[:message][:text]
 				Rails.logger.info "get_line_message: #{content}"
+        line_user.contents.create(content: content)
+
 				client = Line::Bot::Client.new do |config|
 				  config.channel_secret = Rails.application.config_for(:api_key)["line"]["channel_secret"]
-				  config.channel_token = Rails.application.config_for(:api_key)["line"]["channel_access_token"]
+				  config.channel_token = Rails.application.config_for(:api_key)["line"]["channel_token"]
 				end
 
 				case content.try(:downcase)
@@ -33,20 +53,6 @@ class NaverLines::ApplicationController < ApplicationController
 						})
 					Rails.logger.info "got_question_mark"
 					return render :json => {result: true, :response => response}
-				when "a"
-					content = user_eye_objets(message[:source][:user_id])
-					line_user = NaverLine::Account.find_by(:line_user_id => line_user_id)
-					member = line_user.try(:member)
-					if member
-						eye_collections = EyeCollection.includes(:eye_object).where(:id => member.eye_collections.map(&:id))
-						content = eye_collections.map{|ec| "#{ec.eye_object.name} #{ec.live_url}"}.join("\n")
-					else
-						content = "沒有物件"
-					end
-					client.reply_message(message[:reply_token], {
-						type: "text",
-						text: content})
-					return render :json => {result: true}
 				when "c"
 					client.reply_message(message[:reply_token], {
 					  type: "template",
@@ -170,19 +176,6 @@ class NaverLines::ApplicationController < ApplicationController
 			message[:message] = e
 		end
 		message
-	end
-
-	def user_eye_objets(line_user_id)
-		line_user = NaverLine::Account.find_by(:line_user_id => line_user_id)
-		member = line_user.try(:member)
-		if member
-			eye_collections = EyeCollection.includes(:eye_object).where(:id => member.eye_collections.map(&:id))
-
-			content = eye_collections.map{|ec| "#{ec.eye_object.name} #{ec.live_url}"}.join("\n")
-		else
-			content = "沒有物件"
-		end
-		content
 	end
 
 	#message example
