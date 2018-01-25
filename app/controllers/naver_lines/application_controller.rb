@@ -39,78 +39,84 @@ class NaverLines::ApplicationController < ApplicationController
 				content = message[:message][:text]
 				Rails.logger.info "get_line_message: #{content}"
         line_user.contents.create(content: content)
-        line_user.save
 
 				client = Line::Bot::Client.new do |config|
 				  config.channel_secret = Rails.application.config_for(:api_key)["line"]["channel_secret"]
 				  config.channel_token = Rails.application.config_for(:api_key)["line"]["channel_token"]
 				end
 
-				case content.try(:downcase)
-				when "?"
-					response = client.reply_message(message[:reply_token], {
-						type: "text",
-						text: "您好\n查詢你的物件請填寫 a \n查詢你的數據請填寫 b"
-						})
-					Rails.logger.info "got_question_mark"
-					return render :json => {result: true, :response => response}
-				when "c"
-					client.reply_message(message[:reply_token], {
-					  type: "template",
-					  altText: "this is a carousel template",
-					  template: {
-				      type: "carousel",
-				      columns: [
-			          {
-			            thumbnailImageUrl: "https://www.eyehouse.co/images/logo/logo_fb_pic.jpg",
-			            title: "this is menu",
-			            text: "description",
-			            actions: [
-		                {
-		                    type: "postback",
-		                    label: "Buy",
-		                    data: "action=buy&itemid=111"
-		                },
-		                {
-		                    type: "postback",
-		                    label: "Add to cart",
-		                    data: "action=add&itemid=111"
-		                },
-		                {
-		                    type: "uri",
-		                    label: "View detail",
-		                    uri: "http://example.com/page/111"
-		                }
-			            ]
-			          },
-			          {
-			            thumbnailImageUrl: "https://www.eyehouse.co/images/logo/logo_fb_pic.jpg",
-			            title: "this is menu",
-			            text: "description",
-			            actions: [
-		                {
-		                    type: "postback",
-		                    label: "Buy",
-		                    data: "action=buy&itemid=222"
-		                },
-		                {
-		                    type: "postback",
-		                    label: "Add to cart",
-		                    data: "action=add&itemid=222"
-		                },
-		                {
-		                    type: "uri",
-		                    label: "View detail",
-		                    uri: "http://example.com/page/222"
-		                }
-			            ]
-			          }
-				      ]
-					  }
-					})
-				else
-					return render :json => {result: true}
-				end
+        res =  Ai::Conversation.get_response(content,line_user_id)
+        response = client.reply_message(message[:reply_token], {
+          type: "text",
+          text: res,
+        })
+        Rails.logger.info "got_question_mark"
+        return render :json => {result: true, :response => response}
+				# case content.try(:downcase)
+				# when "?"
+				# 	response = client.reply_message(message[:reply_token], {
+				# 		type: "text",
+				# 		text: "您好\n查詢你的物件請填寫 a \n查詢你的數據請填寫 b"
+				# 		})
+				# 	Rails.logger.info "got_question_mark"
+				# 	return render :json => {result: true, :response => response}
+				# when "c"
+				# 	client.reply_message(message[:reply_token], {
+				# 	  type: "template",
+				# 	  altText: "this is a carousel template",
+				# 	  template: {
+				#       type: "carousel",
+				#       columns: [
+			  #         {
+			  #           thumbnailImageUrl: "https://www.eyehouse.co/images/logo/logo_fb_pic.jpg",
+			  #           title: "this is menu",
+			  #           text: "description",
+			  #           actions: [
+		    #             {
+		    #                 type: "postback",
+		    #                 label: "Buy",
+		    #                 data: "action=buy&itemid=111"
+		    #             },
+		    #             {
+		    #                 type: "postback",
+		    #                 label: "Add to cart",
+		    #                 data: "action=add&itemid=111"
+		    #             },
+		    #             {
+		    #                 type: "uri",
+		    #                 label: "View detail",
+		    #                 uri: "http://example.com/page/111"
+		    #             }
+			  #           ]
+			  #         },
+			  #         {
+			  #           thumbnailImageUrl: "https://www.eyehouse.co/images/logo/logo_fb_pic.jpg",
+			  #           title: "this is menu",
+			  #           text: "description",
+			  #           actions: [
+		    #             {
+		    #                 type: "postback",
+		    #                 label: "Buy",
+		    #                 data: "action=buy&itemid=222"
+		    #             },
+		    #             {
+		    #                 type: "postback",
+		    #                 label: "Add to cart",
+		    #                 data: "action=add&itemid=222"
+		    #             },
+		    #             {
+		    #                 type: "uri",
+		    #                 label: "View detail",
+		    #                 uri: "http://example.com/page/222"
+		    #             }
+			  #           ]
+			  #         }
+				#       ]
+				# 	  }
+				# 	})
+				# else
+				# 	return render :json => {result: true}
+				# end
 			else
 
 			end

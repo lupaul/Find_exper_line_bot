@@ -15,6 +15,7 @@
 # Ignore settings
 /config/application.yml
 /config/database.yml
+/config/api_key.yml
 /config/secrets.yml
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

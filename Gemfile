@@ -29,7 +29,7 @@ gem 'httparty'
 # db
 # gem 'pg'
 gem 'mysql2'
-
+# gem 'api-ai-ruby'
 # others
 gem 'rails-i18n', '~> 5.0.0'
 
