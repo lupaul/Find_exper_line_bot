@@ -20,10 +20,14 @@ module Ai::Conversation
               api: "nli",
               timestamp: timestamp,
               sign: sign_key,
-              rq: "{'data':{'input_type':1,'text': #{message}},'data_type':'stt'}",
+              rq: "{'data':{'input_type':1,'text': '#{message}'},'data_type':'stt'}",
               cusid: session_id)
     res = JSON.parse(response.body)["data"]["nli"][0]["desc_obj"]["result"]
-    return res
+    if res
+      return res
+    else
+      return {errors: "no message"}
+    end
 
   end
 
