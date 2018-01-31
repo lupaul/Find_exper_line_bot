@@ -15,7 +15,8 @@ module Ai::Conversation
     secret = Rails.application.config_for(:api_key)["api_ai"]["secret"]
     sign_key = Digest::MD5.hexdigest "#{secret}api=nliappkey=#{key}timestamp=#{timestamp}#{secret}"
     uri = URI(api_url)
-    response = Net::HTTP.post_form(uri,,appkey: key,
+    response = Net::HTTP.post_form(uri,
+              appkey: key,
               api: "nli",
               timestamp: timestamp,
               sign: sign_key,
