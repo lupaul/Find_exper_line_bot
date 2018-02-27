@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122074806) do
+ActiveRecord::Schema.define(version: 20180227063332) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.bigint "facebook_id"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20180122074806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["line_user_id"], name: "index_naver_line_contents_on_line_user_id"
+  end
+
+  create_table "rooms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.string "name"
+    t.string "sessionId"
+    t.boolean "public"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|

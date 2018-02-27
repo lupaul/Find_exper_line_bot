@@ -5,8 +5,8 @@ html
     = display_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    <script src="https://static.opentok.com/v2/js/opentok.js" ></script>
     = csrf_meta_tags
   body
-  	= render partial: "common/navbar"
+
     = yield
-    = render partial: "common/ga_trace"
