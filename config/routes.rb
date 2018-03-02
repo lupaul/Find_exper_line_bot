@@ -15,6 +15,12 @@ Rails.application.routes.draw do
   resources :rooms
   match '/party/:id', :to => "rooms#party", :as => :party, :via => :get
 
+  namespace :api, default: :json do
+    namespace :v1 do
+      resources :chats
+      post "chat", to: "chats#chat"
+    end
+  end
 
   namespace :naver_lines do
     post :webhooks, :to => "application#webhooks"

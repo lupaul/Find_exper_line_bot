@@ -26,6 +26,8 @@ gem 'settingslogic'
 gem 'koala'
 gem 'httparty'
 # gem 'newrelic_rpm'
+gem 'rest-client'
+gem 'jwt'
 
 # db
 # gem 'pg'

@@ -69,8 +69,14 @@
   session.on('signal:msg', function signalCallback(event) {
     var msg = document.createElement('p');
     msg.textContent = event.data;
-    msg.className = event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
+		console.log("event:" ,event)
+		console.log("event_data:" ,event.data)
+		// console.log("connection_id:",event.from.connectionId)
+    // msg.className = event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
+		msg.className = "theirs";
+		console.log("log:",msg.className)
     msgHistory.appendChild(msg);
+		console.log("message:",msg)
     msg.scrollIntoView();
   });
 
@@ -82,17 +88,25 @@ var msgTxt = document.querySelector('#msgTxt');
 // Send a signal once the user enters data in the form
 form.addEventListener('submit', function submit(event) {
   event.preventDefault();
-
-  session.signal({
-    type: 'msg',
-    data: msgTxt.value
-  }, function signalCallback(error) {
-    if (error) {
-      console.error('Error sending signal:', error.name, error.message);
-    } else {
-      msgTxt.value = '';
-    }
-  });
+	$.ajax({
+		url:"/api/v1/chat",
+		method: "POST",
+		data: {
+			id: session.id,
+			type: 'msg',
+			data: msgTxt.value
+		}
+	})
+  // session.signal({
+  //   type: 'msg',
+  //   data: msgTxt.value
+  // }, function signalCallback(error) {
+  //   if (error) {
+  //     console.error('Error sending signal:', error.name, error.message);
+  //   } else {
+  //     msgTxt.value = '';
+  //   }
+  // });
 });
 
 // See the config.js file.
